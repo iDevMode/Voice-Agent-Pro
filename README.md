@@ -1,17 +1,62 @@
-# Voice Booking Agent Showcase
+# Voice Agent Pro
 
-A Next.js application demonstrating an AI-powered voice booking agent with both text (LLM) and voice (Vapi.ai) interaction modes.
+An AI-powered appointment scheduling system that allows patients to book appointments at Dr. Smith's clinic through natural voice conversations or text chat. The agent handles the entire booking process autonomously, from greeting callers to confirming appointments.
 
-## Features
+## 🌟 Key Features
 
-- 🤖 **LLM-Powered Chat**: Intelligent conversation using OpenAI's GPT models
-- 🎤 **Voice Integration**: Real-time voice calls powered by Vapi.ai
-- 💬 **Dual Mode**: Switch between text-based and voice-based interactions
-- 📊 **Live Transcript**: Real-time conversation display
-- 📅 **Appointment Booking**: Automated booking system for clinic services
-- 🎨 **Modern UI**: Beautiful, responsive interface with Tailwind CSS
+### 🎤 **Dual Interaction Modes**
 
-## Getting Started
+**Voice Mode (Vapi.ai)**
+- Real-time voice conversations using Vapi.ai technology
+- Natural speech recognition and text-to-speech
+- Hands-free booking experience
+- Professional voice assistant (Nova voice)
+
+**Text Mode (LLM)**
+- Text-based chat interface powered by OpenAI GPT
+- Ideal for testing and accessibility
+- Same intelligent conversation flow as voice mode
+
+### 🤖 **Intelligent Conversation Flow**
+
+The agent follows a structured, professional conversation pattern:
+
+1. **Greeting** - Welcomes the caller warmly
+2. **Name Collection** - Asks for the patient's full name
+3. **Service Selection** - Inquires about the desired service (Physiotherapy, Massage, or General Consultation)
+4. **Time Scheduling** - Requests preferred day and time (Monday-Friday, 9 AM - 5 PM)
+5. **Confirmation** - Confirms all details and books the appointment
+
+### 🧠 **Smart Features**
+
+**Filler Word Filtering**
+- Automatically removes "um", "uh", "ah", and other filler words
+- Ensures clean, professional data capture
+- Example: "Um, John Smith" → "John Smith"
+
+**Duplicate Prevention**
+- Prevents multiple appointments from being created for the same booking
+- Tracks processed messages to avoid repetition in transcripts
+- Ensures data integrity
+
+**Natural Language Understanding**
+- Powered by OpenAI's GPT-4o-mini for intelligent responses
+- Understands context and maintains conversation flow
+- Handles variations in how people speak naturally
+
+### 📅 **Automatic Appointment Management**
+
+**Smart Booking**
+- Automatically extracts booking details from conversation
+- Creates appointments with correct date, time, and service
+- Calculates actual dates from day names (e.g., "Monday" → next Monday's date)
+
+**Real-time Dashboard**
+- View all appointments in a clean, organized interface
+- Calendar view for visual scheduling
+- Appointment list with full details
+
+## 🚀 Getting Started
 
 ### Prerequisites
 
@@ -22,14 +67,20 @@ A Next.js application demonstrating an AI-powered voice booking agent with both 
 
 ### Installation
 
-1. **Install dependencies**:
+1. **Clone the repository**:
+   ```bash
+   git clone https://github.com/iDevMode/Voice-Agent-Pro.git
+   cd Voice-Agent-Pro
+   ```
+
+2. **Install dependencies**:
    ```bash
    npm install
    ```
 
-2. **Configure environment variables**:
+3. **Configure environment variables**:
    
-   Copy the `.env.local` file and add your API keys:
+   Create a `.env.local` file in the root directory and add your API keys:
    
    ```env
    # Vapi.ai Configuration
@@ -76,7 +127,7 @@ A Next.js application demonstrating an AI-powered voice booking agent with both 
    npm start
    ```
 
-## Usage
+## 📖 Usage
 
 ### Text + LLM Mode
 
@@ -95,15 +146,16 @@ A Next.js application demonstrating an AI-powered voice booking agent with both 
 5. Use the mute button to toggle your microphone
 6. End the call when finished
 
-## Project Structure
+## 🏗️ Project Structure
 
 ```
-voice-booking-agent-showcase/
+voice-agent-pro/
 ├── src/
 │   ├── app/
 │   │   ├── api/
 │   │   │   └── chat/
 │   │   │       └── route.ts          # OpenAI LLM API endpoint
+│   │   ├── demo/                     # Demo page
 │   │   ├── page.tsx                  # Main page
 │   │   └── layout.tsx                # Root layout
 │   ├── components/
@@ -112,7 +164,9 @@ voice-booking-agent-showcase/
 │   │   │   ├── LiveTranscript.tsx    # Conversation transcript
 │   │   │   └── Waveform.tsx          # Audio visualizer
 │   │   └── dashboard/
-│   │       └── DashboardLayout.tsx   # Dashboard layout
+│   │       ├── DashboardLayout.tsx   # Dashboard layout
+│   │       ├── AppointmentList.tsx   # Appointment list view
+│   │       └── CalendarView.tsx      # Calendar view
 │   ├── hooks/
 │   │   └── useVapi.ts                # Vapi.ai integration hook
 │   ├── lib/
@@ -121,20 +175,25 @@ voice-booking-agent-showcase/
 │   │   └── utils.ts                  # Utility functions
 │   └── styles/
 ├── .env.local                        # Environment variables (create this)
+├── ARCHITECTURE.md                   # System architecture documentation
+├── VAPI_CONFIG.md                    # Vapi configuration guide
+├── VAPI_FIXES.md                     # Bug fixes documentation
 └── package.json
 ```
 
-## Key Technologies
+## 🛠️ Technology Stack
 
 - **Next.js 16**: React framework with App Router
+- **React 19**: Latest React version
 - **TypeScript**: Type-safe development
 - **Tailwind CSS**: Utility-first styling
-- **OpenAI API**: LLM for intelligent conversations
+- **OpenAI API**: GPT-4o-mini for intelligent conversations
 - **Vapi.ai**: Voice AI platform for real-time voice calls
 - **Zustand**: Lightweight state management
 - **Lucide React**: Icon library
+- **date-fns**: Date manipulation library
 
-## Customization
+## ⚙️ Customization
 
 ### Changing the LLM Model
 
@@ -151,7 +210,7 @@ Edit `src/hooks/useVapi.ts`:
 ```typescript
 voice: {
   provider: 'openai',
-  voiceId: 'alloy', // Options: alloy, echo, fable, onyx, nova, shimmer
+  voiceId: 'nova', // Options: alloy, echo, fable, onyx, nova, shimmer
 },
 ```
 
@@ -161,7 +220,7 @@ Edit the system prompt in both:
 - `src/app/api/chat/route.ts` (for text mode)
 - `src/hooks/useVapi.ts` (for voice mode)
 
-## Troubleshooting
+## 🐛 Troubleshooting
 
 ### "Failed to load the app" Error
 
@@ -181,13 +240,39 @@ Edit the system prompt in both:
 - Check the browser console for API errors
 - Ensure the API route is accessible at `/api/chat`
 
-## License
+### Appointments Not Being Created
+
+- Check browser console for errors
+- Verify the booking confirmation message contains "booked" or "confirmed"
+- Ensure all three pieces of info (name, service, time) are mentioned in conversation
+
+## 📚 Documentation
+
+- [ARCHITECTURE.md](./ARCHITECTURE.md) - System architecture and design
+- [VAPI_CONFIG.md](./VAPI_CONFIG.md) - Vapi.ai configuration guide
+- [VAPI_FIXES.md](./VAPI_FIXES.md) - Bug fixes and improvements
+- [FLOW_UPDATE.md](./FLOW_UPDATE.md) - Conversation flow updates
+
+## 🤝 Contributing
+
+Contributions are welcome! Please feel free to submit a Pull Request.
+
+## 📄 License
 
 MIT
 
-## Support
+## 💬 Support
 
 For issues or questions:
 - Check the [Next.js Documentation](https://nextjs.org/docs)
 - Visit [Vapi.ai Documentation](https://docs.vapi.ai/)
 - Review [OpenAI API Documentation](https://platform.openai.com/docs)
+- Open an issue on GitHub
+
+## 🎯 Key Takeaway
+
+This is not just a voice menu system - it's an intelligent conversational AI that understands context, speaks naturally, and completes the entire booking process just like a human receptionist would, but available 24/7 with zero wait times.
+
+---
+
+**Built with ❤️ using Next.js, OpenAI, and Vapi.ai**
